@@ -1,15 +1,24 @@
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { FaCheck } from "react-icons/fa6";
 // import Clock from "../Components/Clock";
 
 function Home() {
   const [input, setInput] = useState("");
-  const [tasks, setTask] = useState([]);
+  const [tasks, setTask] = useState(()=>{
+    const savedTask = localStorage.getItem("tasks")
+    console.log(savedTask)
+      return savedTask ? JSON.parse(localStorage.getItem("tasks")) : [];
+  
+  });
 
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+ 
   const formSubmit = (e) => {
     e.preventDefault();
-    if (!input) return;
+    if (!input) return alert('input task!') ;
     if (tasks.includes(input)) {
       setInput("");
       alert(`already the task ${input} you added `);
@@ -27,7 +36,9 @@ function Home() {
     setTask(data);
   };
   const handelCheck2 = (e) => {
-   e.target.parentElement.parentElement.classList.add("line-through","decoration-rose-500")
+   e.target.parentElement.parentElement.classList.toggle("line-through");
+   e.target.parentElement.parentElement.classList.toggle("decoration-rose-500");
+
 
 
   };
