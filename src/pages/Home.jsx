@@ -1,16 +1,18 @@
-import { useState , useEffect } from "react";
+import { useState , useEffect, useRef} from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { FaCheck } from "react-icons/fa6";
+
 // import Clock from "../Components/Clock";
 
 function Home() {
+  const modalBtn = useRef()
   const [input, setInput] = useState("");
   const [tasks, setTask] = useState(()=>{
     const savedTask = localStorage.getItem("tasks")
-    console.log(savedTask)
       return savedTask ? JSON.parse(localStorage.getItem("tasks")) : [];
   
   });
+  const [modalInput,  setModalInput] = useState()
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -20,8 +22,10 @@ function Home() {
     e.preventDefault();
     if (!input) return alert('input task!') ;
     if (tasks.includes(input)) {
+      setModalInput(input)
       setInput("");
-      alert(`already the task ${input} you added `);
+      modalBtn.current.showModal()
+      // alert( ` "${input} " you added `);
       return;
     }
     setTask((prev) => [...prev, input]);
@@ -104,7 +108,7 @@ function Home() {
               })}
               <button
                 onClick={handelClearBtn}
-                className="bg-rose-600 text-white p-2 my-3 rounded-md"
+                className=" bg-rose-600 text-white p-2 my-3 rounded-md"
               >
                 Clear All
               </button>
@@ -117,6 +121,19 @@ function Home() {
         </div>
       </div>
 
+      {/* modal  */}
+    
+
+
+<dialog ref={modalBtn}  className="modal">
+  <div className="modal-box">
+    <form method="dialog">
+      <button className="btn btn-sm btn-circle bg-rose-200 text-rose-700 btn-ghost absolute right-2 top-2">✕</button>
+    </form>
+    <h3 className="font-bold text-lg">Oops!</h3>
+    <p className="py-4">already the task <span className="font-bold text-rose-500">{modalInput}</span> added in the task list.</p>
+  </div>
+</dialog>
 
     </>
   );
