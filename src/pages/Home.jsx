@@ -50,7 +50,7 @@ function Home() {
   return (
     <>
       <div className=" container mx-auto text-center">
-        <h1 className=" md:w-1/2 mx-auto p-3 rounded-lg mt-5 text-white font-bold text-2xl bg-gradient-to-l from-violet-500 to-blue-500">
+        <h1 className=" w-[95%] md:w-1/2 mx-auto p-3 rounded-lg mt-5 text-white font-bold text-2xl bg-gradient-to-l from-violet-500 to-blue-500">
           Todo App
         </h1>
 
@@ -82,7 +82,9 @@ function Home() {
               {tasks.map((task, index) => {
                 return (
                   <li
-                    className=" flex justify-center items-center list-none bg-gradient-to-l from-violet-500 to-blue-500 w-[95%] md:w-2/6 mx-auto my-2 p-3 rounded-lg text-white text-xl shadow-md shadow-blue-200"
+                  className={`flex justify-evenly items-center list-none w-[95%] md:w-2/6 mx-auto my-2 p-3 rounded-lg text-white text-xl shadow-md shadow-blue-200 ${
+                    index % 2 == 1 ? "bg-gradient-to-l from-violet-500 to-blue-500" : "bg-gradient-to-l from-pink-500 to-violet-500" 
+                  }`}
                     key={index}
                   >
                     {task}
