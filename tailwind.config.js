@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {},
+    fontFamily:{
+      custom:["Playwrite GB S", "cursive"]
+    }
   },
   // eslint-disable-next-line no-undef
   plugins: [require("daisyui")],

@@ -1,16 +1,24 @@
-import { useState } from "react";
+import  { useState, useEffect } from 'react';
 
 function Clock() {
-  const [times, setTimes] = useState("");
-  const time = new Date();
-  const formateDate = time.toLocaleDateString();
-  const formatedTime = time.toLocaleTimeString();
+  const [time, setTime] = useState("");
 
-  setInterval(() => {
-    setTimes(`${formateDate} - ${formatedTime}`);
-  }, 1000);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = new Date();
+      const formattedDate = now.toLocaleDateString();
+      const formattedTime = now.toLocaleTimeString();
+      setTime(`${formattedDate} - ${formattedTime}`);
+    }, 1000);
 
-  return <>{times}</>;
+    return () => clearInterval(interval); // Cleanup the interval on component unmount
+  }, []);
+
+  return (
+    <div className="clock font-custom font-bold text-xl py-4">
+      {time}
+    </div>
+  );
 }
 
 export default Clock;

@@ -2,7 +2,7 @@ import { useState , useEffect, useRef} from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { FaCheck } from "react-icons/fa6";
 
-// import Clock from "../Components/Clock";
+import Clock from "../Components/Clock";
 
 function Home() {
   const modalBtn = useRef()
@@ -25,7 +25,6 @@ function Home() {
       setModalInput(input)
       setInput("");
       modalBtn.current.showModal()
-      // alert( ` "${input} " you added `);
       return;
     }
     setTask((prev) => [...prev, input]);
@@ -54,7 +53,7 @@ function Home() {
           Todo App
         </h1>
 
-        {/* <Clock /> */}
+        <Clock />
 
         <form onSubmit={formSubmit}>
           <div className="mt-5">
@@ -82,13 +81,13 @@ function Home() {
               {tasks.map((task, index) => {
                 return (
                   <li
-                  className={`flex justify-evenly items-center list-none w-[95%] md:w-2/6 mx-auto my-2 p-3 rounded-lg text-white text-xl shadow-md shadow-blue-200 ${
+                  className={`relative flex justify-evenly items-center list-none w-[95%] md:w-2/6 mx-auto my-2 p-3 rounded-lg text-white text-xl shadow-md shadow-blue-200 ${
                     index % 2 == 1 ? "bg-gradient-to-l from-violet-500 to-blue-500" : "bg-gradient-to-l from-pink-500 to-violet-500" 
                   }`}
                     key={index}
                   >
                     {task}
-
+                    
                     <button
                       onClick={(e) => {
                         handelCheck2(e);
@@ -105,6 +104,7 @@ function Home() {
                     >
                       <MdDeleteForever className="text-red-500 bg-white p-2 text-4xl rounded-full hover:bg-rose-500 hover:text-white transition" />
                     </button>
+                   <p className="text-xs  absolute top-0 left-0 p-1 "> {(new Date).toDateString()}</p> 
                   </li>
                 );
               })}
